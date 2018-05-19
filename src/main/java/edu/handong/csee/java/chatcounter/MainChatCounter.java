@@ -11,9 +11,6 @@ public class MainChatCounter {
 	public static void main(String[] args) {
 		DataReader dataReader = new DataReader();
 		MessageFilter filter = new MessageFilter();
-		//DataReaderForCSV readerCSV = new DataReaderForCSV();
-		//DataReaderForTXT readerTXT = new DataReaderForTXT();
-		//DataWriter dataWriter = new DataWriter();
 		
 		ChatMessageCounter counter= new ChatMessageCounter();
 		Map<String, Integer> user = new HashMap<String, Integer>();
