@@ -10,8 +10,6 @@ public class DataReader {
 	public ArrayList<String> getData(String strDir) {
 		File myDir = getDirectory(strDir);
 		File[] files = getlistOfFilesFromDirectory(myDir);
-		for (int i=0; i<20; i++)
-			System.out.println(files[i].getName());
 		ArrayList<String> messages = readFiles(files);
 		
 		return messages;
@@ -37,9 +35,6 @@ public class DataReader {
 				while(scan.hasNextLine())
 					messages.add(scan.nextLine());
 			}
-			Scanner scan2 = new Scanner(files[11]);
-			while(scan2.hasNextLine())
-				System.out.println(scan2.nextLine());
 		}
 		catch (FileNotFoundException e) {
 			
