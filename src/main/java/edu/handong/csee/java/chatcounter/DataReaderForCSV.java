@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  */
 
 public class DataReaderForCSV extends DataReader {
-	
+
 	/**
 	 * 
 	 * This method is for running(reading csv file).</br>
@@ -24,14 +24,14 @@ public class DataReaderForCSV extends DataReader {
 	 * @param message
 	 * @return
 	 */
-	
+
 	public ArrayList<String> run(ArrayList<String> message) {
 		message = filterCSVFile(message);
 		message = parsingCSVFile(message);
-		
+
 		return message;
 	}
-	
+
 	/**
 	 * 
 	 * This method is for filtering csv file.</br>
@@ -42,14 +42,14 @@ public class DataReaderForCSV extends DataReader {
 
 	private ArrayList<String> filterCSVFile(ArrayList<String> message) {
 		ArrayList<String> csvMessage = new ArrayList<String>();
-		
+
 		for (String str : message)
 			if (str.startsWith("2018"))
 				csvMessage.add(str);
-		
+
 		return csvMessage;
 	}
-	
+
 	/**
 	 * 
 	 * This method is for parsing csv file.</br>
@@ -62,12 +62,12 @@ public class DataReaderForCSV extends DataReader {
 		ArrayList<String> parsingCVS = new ArrayList<String>();
 		int year, month, day, hour, minute, second;
 		String name, message, date;
-		
+
 		for (String str : cvs) {
 			String pattern = "([0-9]+)-([0-9]+)-([0-9]+)\\s([0-9]+):([0-9]+):([0-9]+)\\,\\\"(.+)\\\"\\,\\\"(.*[^\\\"])";
 			Pattern p = Pattern.compile(pattern);
 			Matcher m = p.matcher(str);
-			
+
 			if (m.find()) {
 				year = Integer.parseInt(m.group(1));
 				month = Integer.parseInt(m.group(2));
@@ -84,8 +84,8 @@ public class DataReaderForCSV extends DataReader {
 				parsingCVS.add(date + " " + hour + ":" + minute + ":" + second + ",\"" + name + "\",\"" + message + "\"");
 			}
 		}
-		
+
 		return parsingCVS;
 	}
-	
+
 }

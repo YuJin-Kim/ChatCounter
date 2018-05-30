@@ -21,7 +21,7 @@ public class Cli {
 	String path;
 	String file;
 	boolean help;
-	
+
 	/**
 	 * 
 	 * This method is for running(cli).</br>
@@ -49,7 +49,7 @@ public class Cli {
 	 * @param args
 	 * @return
 	 */
-	
+
 	private boolean parseOptions(Options options, String[] args) {
 		CommandLineParser parser = new DefaultParser();
 
@@ -75,7 +75,7 @@ public class Cli {
 	 * 
 	 * @return
 	 */
-	
+
 	// Definition Stage
 	private Options createOptions() {
 		Options options = new Options();
@@ -110,7 +110,7 @@ public class Cli {
 	 * 
 	 * @param options
 	 */
-	
+
 	private void printHelp(Options options) {
 		// automatically generate the help statement
 		HelpFormatter formatter = new HelpFormatter();

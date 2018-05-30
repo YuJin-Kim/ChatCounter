@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 
 public class DataReader {
-	
+
 	/**
 	 * 
 	 * This method is for getting data(run).</br>
@@ -31,10 +31,10 @@ public class DataReader {
 		File myDir = getDirectory(strDir);
 		File[] files = getlistOfFilesFromDirectory(myDir);
 		ArrayList<String> messages = readFiles(files);
-		
+
 		return messages;
 	}
-	
+
 	/**
 	 * 
 	 * This method is for getting directory path.</br>
@@ -42,17 +42,17 @@ public class DataReader {
 	 * @param strDir
 	 * @return
 	 */
-	
+
 	public File getDirectory(String strDir) {
 		try {
-			 File myDirectory = new File(strDir);
-			 return myDirectory;
+			File myDirectory = new File(strDir);
+			return myDirectory;
 		}catch(Exception e) {
 			System.out.println("It is invalid path.");
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * This method is for getting file list from directory path.</br>
@@ -64,7 +64,7 @@ public class DataReader {
 	public File[] getlistOfFilesFromDirectory(File dataDir) {
 		return dataDir.listFiles();
 	}
-	
+
 	/**
 	 * 
 	 * This method is for reading files.</br>
@@ -72,10 +72,10 @@ public class DataReader {
 	 * @param files
 	 * @return
 	 */
-	
+
 	public ArrayList<String> readFiles(File[] files) {
 		ArrayList<String> messages = new ArrayList<String>();
-		
+
 		try {
 			for(File f : files) {
 				FileReader fileReader = new FileReader(f);
@@ -83,15 +83,15 @@ public class DataReader {
 				String line = "";
 				while((line = bufferedReader.readLine()) != null)
 					messages.add(line);
-				
+
 				bufferedReader.close();
 			}
 		}catch (FileNotFoundException e) {
 		}catch (IOException e) {
 			System.out.println(e);
 		}
-		
+
 		return messages;
 	}
-	
+
 }

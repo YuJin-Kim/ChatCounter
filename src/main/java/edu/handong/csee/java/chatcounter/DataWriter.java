@@ -27,14 +27,14 @@ public class DataWriter {
 	 * @param map
 	 * @param f
 	 */
-	
+
 	public void printOutputHashMap(HashMap<String, Integer> map, String f) {
 		Set<String> set = map.keySet();
-		
+
 		try {
 			File file = new File(f);
 			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
-			
+
 			if(file.isFile() && file.canWrite()) {
 				bufferedWriter.write("kakao_id, count\n");
 				for (String key : set)
@@ -45,5 +45,5 @@ public class DataWriter {
 			System.out.println(e);
 		}
 	}
-	
+
 }

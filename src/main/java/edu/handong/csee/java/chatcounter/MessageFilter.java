@@ -17,17 +17,17 @@ import java.util.regex.Pattern;
  */
 
 public class MessageFilter {
-	
+
 	/**
 	 * 
 	 * This method is for filtering overlap message.</br>
 	 * 
 	 * @param message
 	 */
-	
+
 	public void filterOverlap(ArrayList<String> message) {
 		int i, j;
-		
+
 		for (i = 0; i < message.size(); i++) {
 			String pattern = "([0-9]+-[0-9]+-[0-9]+\\s[0-9]+:[0-9]+):[0-9]+\\,(\\\".+\\\"\\,\\\".+\\\")";
 			Pattern p = Pattern.compile(pattern);
@@ -41,7 +41,7 @@ public class MessageFilter {
 					}
 				}
 		}
-		
+
 	}
-	
+
 }

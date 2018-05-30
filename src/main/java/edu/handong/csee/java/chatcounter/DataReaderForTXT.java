@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  */
 
 public class DataReaderForTXT extends DataReader{
-	
+
 	/**
 	 * 
 	 * This method is for running(reading txt file).</br>
@@ -24,14 +24,14 @@ public class DataReaderForTXT extends DataReader{
 	 * @param message
 	 * @return
 	 */
-	
+
 	public ArrayList<String> run(ArrayList<String> message) {
 		message = filterTXTFile(message);
 		message = parsingTXTFile(message);
-		
+
 		return message;
 	}
-	
+
 	/**
 	 * 
 	 * This method is for filtering txt file.</br>
@@ -42,14 +42,14 @@ public class DataReaderForTXT extends DataReader{
 
 	private ArrayList<String> filterTXTFile(ArrayList<String> message) {
 		ArrayList<String> txtMessage = new ArrayList<String>();
-		
+
 		for (String str : message)
 			if (str.startsWith("[") || str.startsWith("-"))
 				txtMessage.add(str);
-		
+
 		return txtMessage;
 	}
-	
+
 	/**
 	 * 
 	 * This method is for parsing txt file.</br>
@@ -57,12 +57,12 @@ public class DataReaderForTXT extends DataReader{
 	 * @param txt
 	 * @return
 	 */
-	
+
 	private ArrayList<String> parsingTXTFile(ArrayList<String> txt) {
 		ArrayList<String> parsingTXT = new ArrayList<String>();
 		int year, month, day, hour, minute;
 		String name, message, date="", time;
-		
+
 		for (String str : txt) {
 			String pattern = "-+\\s([0-9]+).\\s([0-9]+).\\s([0-9]+).\\s...\\s-+";
 			String pattern2 = "\\[(.+)\\]\\s\\[(..)\\s([0-9]+):([0-9]+)\\]\\s(.+)";
@@ -70,14 +70,14 @@ public class DataReaderForTXT extends DataReader{
 			Pattern p2 = Pattern.compile(pattern2);
 			Matcher m = p.matcher(str);
 			Matcher m2 = p2.matcher(str);
-			
+
 			if (m.find()) {
 				year = Integer.parseInt(m.group(1));
 				month = Integer.parseInt(m.group(2));
 				day = Integer.parseInt(m.group(3));
 				date = year + "-" + month + "-" + day;
 			}
-			
+
 			if (m2.find()) {
 				name = m2.group(1);
 				if (m2.group(2).equals("오후") && Integer.parseInt(m2.group(3))!=12)
@@ -93,8 +93,8 @@ public class DataReaderForTXT extends DataReader{
 				parsingTXT.add(date + " " + time + ",\"" + name + "\",\"" + message + "\"");
 			}
 		}
-		
+
 		return parsingTXT;
 	}
-	
+
 }

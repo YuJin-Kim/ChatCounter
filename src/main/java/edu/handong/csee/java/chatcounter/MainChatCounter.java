@@ -37,7 +37,7 @@ public class MainChatCounter {
 		file = cli.file;
 		try {
 			message = dataReader.getData(path);
-			
+
 			csv = readerCSV.run(message);
 			txt = readerTXT.run(message);
 
