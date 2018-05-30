@@ -1,9 +1,12 @@
 package edu.handong.csee.java.chatcounter;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.FileReader;
 import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.IOException;
 
 public class DataReader {
 	
@@ -16,13 +19,16 @@ public class DataReader {
 	}
 	
 	public File getDirectory(String strDir) {
-		File myDirectory = new File(strDir);
-		
-		return myDirectory;
+		try {
+			 File myDirectory = new File(strDir);
+			 return myDirectory;
+		}catch(Exception e) {
+			System.out.println("It is invalid path.");
+			return null;
+		}
 	}
 
 	public File[] getlistOfFilesFromDirectory(File dataDir) {
-		
 		return dataDir.listFiles();
 	}
 	
@@ -31,13 +37,17 @@ public class DataReader {
 		
 		try {
 			for(File f : files) {
-				Scanner scan = new Scanner(f);
-				while(scan.hasNextLine())
-					messages.add(scan.nextLine());
+				FileReader fileReader = new FileReader(f);
+				BufferedReader bufferedReader = new BufferedReader(fileReader);
+				String line = "";
+				while((line = bufferedReader.readLine()) != null)
+					messages.add(line);
+				
+				bufferedReader.close();
 			}
-		}
-		catch (FileNotFoundException e) {
-			
+		}catch (FileNotFoundException e) {
+		}catch (IOException e) {
+			System.out.println(e);
 		}
 		
 		return messages;
