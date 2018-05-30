@@ -4,7 +4,26 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DataReaderForTXT {
+/**
+ * 
+ * This class defines DataReaderForTXT object.</br>
+ * The DataReaderForTXT has no member.</br>
+ * The DataReaderForTXT has run(), filterTXTFile(), parsingTXTFile().</br>
+ *  * This DataReaderForTXT class inherits DataReader class.</br>
+ * 
+ * @author YuJin
+ *
+ */
+
+public class DataReaderForTXT extends DataReader{
+	
+	/**
+	 * 
+	 * This method is for running(reading txt file).</br>
+	 * 
+	 * @param message
+	 * @return
+	 */
 	
 	public ArrayList<String> run(ArrayList<String> message) {
 		message = filterTXTFile(message);
@@ -12,6 +31,14 @@ public class DataReaderForTXT {
 		
 		return message;
 	}
+	
+	/**
+	 * 
+	 * This method is for filtering txt file.</br>
+	 * 
+	 * @param message
+	 * @return
+	 */
 
 	private ArrayList<String> filterTXTFile(ArrayList<String> message) {
 		ArrayList<String> txtMessage = new ArrayList<String>();
@@ -22,6 +49,14 @@ public class DataReaderForTXT {
 		
 		return txtMessage;
 	}
+	
+	/**
+	 * 
+	 * This method is for parsing txt file.</br>
+	 * 
+	 * @param txt
+	 * @return
+	 */
 	
 	private ArrayList<String> parsingTXTFile(ArrayList<String> txt) {
 		ArrayList<String> parsingTXT = new ArrayList<String>();

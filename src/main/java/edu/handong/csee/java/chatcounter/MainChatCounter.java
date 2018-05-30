@@ -4,6 +4,17 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.lang.NullPointerException;
 
+/**
+ * 
+ * This class defines a MainChatCounter object. </br>
+ * This class execute counting chat which gave from files.</br>
+ * The MainChatCounter has no member.</br>
+ * The MainChatCounter has only method.</br>
+ * 
+ * @author YuJin
+ *
+ */
+
 public class MainChatCounter {
 
 	public static void main(String[] args) {

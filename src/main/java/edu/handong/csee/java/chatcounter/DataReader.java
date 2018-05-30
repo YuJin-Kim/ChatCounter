@@ -8,8 +8,25 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
 
+/**
+ * 
+ * This class defines DataReader object.</br>
+ * The DataReader class has no member.</br>
+ * The DataReader class has getData(), getDirectory() and getlistOfFiles() methods.</br>
+ * 
+ * @author YuJin
+ *
+ */
+
 public class DataReader {
 	
+	/**
+	 * 
+	 * This method is for getting data(run).</br>
+	 * 
+	 * @param strDir
+	 * @return
+	 */
 	public ArrayList<String> getData(String strDir) {
 		File myDir = getDirectory(strDir);
 		File[] files = getlistOfFilesFromDirectory(myDir);
@@ -17,6 +34,14 @@ public class DataReader {
 		
 		return messages;
 	}
+	
+	/**
+	 * 
+	 * This method is for getting directory path.</br>
+	 * 
+	 * @param strDir
+	 * @return
+	 */
 	
 	public File getDirectory(String strDir) {
 		try {
@@ -27,10 +52,26 @@ public class DataReader {
 			return null;
 		}
 	}
+	
+	/**
+	 * 
+	 * This method is for getting file list from directory path.</br>
+	 * 
+	 * @param dataDir
+	 * @return
+	 */
 
 	public File[] getlistOfFilesFromDirectory(File dataDir) {
 		return dataDir.listFiles();
 	}
+	
+	/**
+	 * 
+	 * This method is for reading files.</br>
+	 * 
+	 * @param files
+	 * @return
+	 */
 	
 	public ArrayList<String> readFiles(File[] files) {
 		ArrayList<String> messages = new ArrayList<String>();

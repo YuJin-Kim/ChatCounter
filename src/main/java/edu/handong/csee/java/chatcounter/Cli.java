@@ -7,11 +7,27 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
+/**
+ * 
+ * This class defines Cli object.</br>
+ * The Cli class has path, file and help members.</br>
+ * The Cli class has run(), parseOptions(), createOptions() and printHelp() methods.</br>
+ * 
+ * @author yujin
+ *
+ */
+
 public class Cli {
 	String path;
 	String file;
-	boolean verbose;
 	boolean help;
+	
+	/**
+	 * 
+	 * This method is for running(cli).</br>
+	 * 
+	 * @param args
+	 */
 
 	public void run(String[] args) {
 		Options options = createOptions();
@@ -25,6 +41,15 @@ public class Cli {
 		}
 	}
 
+	/**
+	 * 
+	 * This method is for parsingOptions.</br>
+	 * 
+	 * @param options
+	 * @param args
+	 * @return
+	 */
+	
 	private boolean parseOptions(Options options, String[] args) {
 		CommandLineParser parser = new DefaultParser();
 
@@ -34,7 +59,6 @@ public class Cli {
 
 			path = cmd.getOptionValue("i");
 			file = cmd.getOptionValue("o");
-			verbose = cmd.hasOption("v");
 			help = cmd.hasOption("h");
 
 		} catch (Exception e) {
@@ -45,6 +69,13 @@ public class Cli {
 		return true;
 	}
 
+	/**
+	 * 
+	 * This method is for creating options.</br>
+	 * 
+	 * @return
+	 */
+	
 	// Definition Stage
 	private Options createOptions() {
 		Options options = new Options();
@@ -73,6 +104,13 @@ public class Cli {
 		return options;
 	}
 
+	/**
+	 * 
+	 * This method is printing help messages.</br>
+	 * 
+	 * @param options
+	 */
+	
 	private void printHelp(Options options) {
 		// automatically generate the help statement
 		HelpFormatter formatter = new HelpFormatter();

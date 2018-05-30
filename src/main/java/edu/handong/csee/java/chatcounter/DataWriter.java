@@ -8,8 +8,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedWriter;
 
+/**
+ * 
+ * This class defines DataWriter object.</br>
+ * The DataWriter class has no member.</br>
+ * The DataWriter class has only printOutputHashMap() method.</br>
+ * 
+ * @author YuJin
+ *
+ */
+
 public class DataWriter {
 
+	/**
+	 * 
+	 * This method is printing output of hashmap.</br>
+	 * 
+	 * @param map
+	 * @param f
+	 */
+	
 	public void printOutputHashMap(HashMap<String, Integer> map, String f) {
 		Set<String> set = map.keySet();
 		
@@ -26,11 +44,6 @@ public class DataWriter {
 		} catch (IOException e) {
 			System.out.println(e);
 		}
-	}
-	
-	public void printOutputArrayList(ArrayList<String> a) {
-		for (String str : a)
-			System.out.println(str);
 	}
 	
 }

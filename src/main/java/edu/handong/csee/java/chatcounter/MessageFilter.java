@@ -6,7 +6,24 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 
+ * This class defines MessageFilter object.</br>
+ * The MessageFilter class has no member.</br>
+ * The MessageFilter class has only filterOverlap() method.</br>
+ * 
+ * @author YuJin
+ *
+ */
+
 public class MessageFilter {
+	
+	/**
+	 * 
+	 * This method is for filtering overlap message.</br>
+	 * 
+	 * @param message
+	 */
 	
 	public void filterOverlap(ArrayList<String> message) {
 		int i, j;

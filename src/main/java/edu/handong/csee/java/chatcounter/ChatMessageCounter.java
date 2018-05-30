@@ -9,7 +9,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * 
+ * This class defines ChatMessageCounter object.</br>
+ * The ChatMessageCounter class has no member.</br>
+ * The ChatMessageCounter class has run(), count() and sorting() methods.
+ * 
+ * @author YuJin
+ * 
+ */
+
 public class ChatMessageCounter {
+	
+	/**
+	 * 
+	 * This method is running(counting chat message and sorting to hashmap).</br>
+	 * 
+	 * @param message
+	 * @return
+	 */
 	
 	public LinkedHashMap<String, Integer> run(ArrayList<String> message) {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
@@ -20,6 +38,14 @@ public class ChatMessageCounter {
 		
 		return sortedMap;
 	}
+	
+	/**
+	 * 
+	 * This method is counting chat message.</br>
+	 * 
+	 * @param message
+	 * @return
+	 */
 	
 	private HashMap<String, Integer> count(ArrayList<String> message) {
 		
@@ -51,6 +77,14 @@ public class ChatMessageCounter {
 		
 		return map;
 	}
+	
+	/**
+	 * 
+	 * This method is for sorting the list.</br>
+	 * 
+	 * @param map
+	 * @return
+	 */
 	
 	private LinkedHashMap<String, Integer> sorting(final HashMap<String, Integer> map) {
 		LinkedHashMap<String, Integer> sortedList = new LinkedHashMap<String, Integer>();
