@@ -19,36 +19,23 @@ public class MainChatCounter {
 
 	public static void main(String[] args) {
 		DataReader dataReader = new DataReader();
-		DataReaderForCSV readerCSV = new DataReaderForCSV();
-		DataReaderForTXT readerTXT = new DataReaderForTXT();
 		MessageFilter filter = new MessageFilter();
 		ChatMessageCounter counter= new ChatMessageCounter();
 		LinkedHashMap<String, Integer> map = new LinkedHashMap<String, Integer>();
 		DataWriter dataWriter = new DataWriter();
 		Cli cli = new Cli();
 
-		ArrayList<String> message;
-		ArrayList<String> csv;
-		ArrayList<String> txt;
+		ArrayList<String> message = new ArrayList<String>();
 		String path, file;
-
+		
 		cli.run(args);
 		path = cli.path;
+		System.out.println(path);
 		file = cli.file;
 		try {
 			message = dataReader.getData(path);
-
-			csv = readerCSV.run(message);
-			txt = readerTXT.run(message);
-
-			message.clear();
-			message.addAll(csv);
-			message.addAll(txt);
-
 			filter.filterOverlap(message);
-
 			map = counter.run(message);
-
 			dataWriter.printOutputHashMap(map, file);
 		}catch(NullPointerException e) {
 			System.out.println("Path is invalid");
