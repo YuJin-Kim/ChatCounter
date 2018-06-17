@@ -1,8 +1,6 @@
 package edu.handong.csee.java.chatcounter;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -62,6 +60,7 @@ public class DataReader {
 	 */
 
 	public File[] getlistOfFilesFromDirectory(File dataDir) {
+		
 		return dataDir.listFiles();
 	}
 
@@ -75,21 +74,60 @@ public class DataReader {
 
 	public ArrayList<String> readFiles(File[] files) {
 		ArrayList<String> messages = new ArrayList<String>();
-
-		try {
-			for(File f : files) {
-				FileReader fileReader = new FileReader(f);
-				BufferedReader bufferedReader = new BufferedReader(fileReader);
-				String line = "";
-				while((line = bufferedReader.readLine()) != null)
-					messages.add(line);
-
-				bufferedReader.close();
+		ArrayList<String> csv = new ArrayList<String>();
+		ArrayList<String> txt = new ArrayList<String>();
+		ArrayList<CSVFileReaderThread> CSVworkers = new ArrayList<CSVFileReaderThread>();
+		ArrayList<TXTFileReaderThread> TXTworkers = new ArrayList<TXTFileReaderThread>();
+		ArrayList<Thread> csvThreads = new ArrayList<Thread>();
+		ArrayList<Thread> txtThreads = new ArrayList<Thread>();
+		
+		for (File f : files) {
+			if(f.getName().endsWith(".csv")) {
+				CSVFileReaderThread csvFileReader = new CSVFileReaderThread(f);
+				CSVworkers.add(csvFileReader);
+				Thread CSVworker = new Thread(csvFileReader);
+				csvThreads.add(CSVworker);
+				
+				CSVworker.start();
+				//csv.addAll(csvFileReader.getMessage());
 			}
-		}catch (FileNotFoundException e) {
-		}catch (IOException e) {
-			System.out.println(e);
+			else {
+				TXTFileReaderThread txtFileReader = new TXTFileReaderThread(f);
+				TXTworkers.add(txtFileReader);
+				Thread TXTworker = new Thread(txtFileReader);
+				txtThreads.add(TXTworker);
+				
+				TXTworker.start();
+				//txt.addAll(txtFileReader.getMessage());
+			}
 		}
+		
+		for(Thread thread : csvThreads) {
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		for(Thread thread : txtThreads) {
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		for (CSVFileReaderThread workers : CSVworkers)
+			csv.addAll(workers.getMessage());
+		
+		for (TXTFileReaderThread workers : TXTworkers)
+			txt.addAll(workers.getMessage());
+
+		messages.addAll(csv);
+		messages.addAll(txt);
 
 		return messages;
 	}
