@@ -16,6 +16,13 @@ import java.lang.NullPointerException;
  */
 
 public class MainChatCounter {
+	
+	/**
+	 * 
+	 * This method is main method for counting a chating.</br>
+	 * 
+	 * @param args
+	 */
 
 	public static void main(String[] args) {
 		DataReader dataReader = new DataReader();
@@ -27,8 +34,8 @@ public class MainChatCounter {
 
 		ArrayList<String> message = new ArrayList<String>();
 		String path, file;
-		
-		cli.run(args);
+
+		cli.run(args); 
 		path = cli.path;
 		System.out.println(path);
 		file = cli.file;

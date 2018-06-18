@@ -1,5 +1,10 @@
 package edu.handong.csee.java.chatcounter;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,29 +30,41 @@ public class DataReaderForTXT extends DataReader{
 	 * @return
 	 */
 
-	public ArrayList<String> run(ArrayList<String> message) {
-		message = filterTXTFile(message);
+	public ArrayList<String> run(File file) {
+		ArrayList<String> message = new ArrayList<String>();
+
+		message = getMessage(file);
 		message = parsingTXTFile(message);
 
 		return message;
 	}
-
+	
 	/**
 	 * 
-	 * This method is for filtering txt file.</br>
+	 * This method is for getting message from txt file.</br>
 	 * 
-	 * @param message
+	 * @param txt
 	 * @return
 	 */
 
-	private ArrayList<String> filterTXTFile(ArrayList<String> message) {
-		ArrayList<String> txtMessage = new ArrayList<String>();
+	private ArrayList<String> getMessage(File txt) {
+		ArrayList<String> message = new ArrayList<String>();
 
-		for (String str : message)
-			if (str.startsWith("[") || str.startsWith("-"))
-				txtMessage.add(str);
+		try {
+			FileReader fileReader = new FileReader(txt);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String line = "";
+			while((line = bufferedReader.readLine()) != null)
+				message.add(line);
 
-		return txtMessage;
+			bufferedReader.close();
+
+		}catch (FileNotFoundException e) {
+		}catch (IOException e) {
+			System.out.println(e);
+		}
+
+		return message;
 	}
 
 	/**

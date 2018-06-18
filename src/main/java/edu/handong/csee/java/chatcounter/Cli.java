@@ -10,7 +10,7 @@ import org.apache.commons.cli.Options;
 /**
  * 
  * This class defines Cli object.</br>
- * The Cli class has path, file and help members.</br>
+ * The Cli class has path, file, help and thread members.</br>
  * The Cli class has run(), parseOptions(), createOptions() and printHelp() methods.</br>
  * 
  * @author yujin
@@ -18,6 +18,7 @@ import org.apache.commons.cli.Options;
  */
 
 public class Cli {
+	static int thread;
 	String path;
 	String file;
 	boolean help;
@@ -57,6 +58,7 @@ public class Cli {
 
 			CommandLine cmd = parser.parse(options, args);
 
+			thread = Integer.parseInt(cmd.getOptionValue("c"));
 			path = cmd.getOptionValue("i");
 			file = cmd.getOptionValue("o");
 			help = cmd.hasOption("h");
@@ -79,6 +81,14 @@ public class Cli {
 	// Definition Stage
 	private Options createOptions() {
 		Options options = new Options();
+
+		// add options by using OptionBuilder
+		options.addOption(Option.builder("c").longOpt("thread")
+				.desc("Put a value that number of thread")
+				.hasArg()
+				.argName("number of thread")
+				.required()
+				.build());
 
 		// add options by using OptionBuilder
 		options.addOption(Option.builder("i").longOpt("path")

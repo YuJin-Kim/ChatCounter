@@ -9,21 +9,51 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 
+ * This class defines TXTFileReaderThread object.<br>
+ * The TXTFileReaderThread has file and message members.</br>
+ * The TXTFileReaderThread has its constructor, run(), getMessageFromTXTFiles, pasringTXTFile() and getMessage(
+ * ) methods.</br>
+ * This TXTFileReaderThread has interface class Runnable.</br>
+ * 
+ * @author YuJin
+ *
+ */
+
 public class TXTFileReaderThread implements Runnable{
 	File file;
 	ArrayList<String> message = new ArrayList<String>();
-	
+
+	/**
+	 * 
+	 * It is constructor.</br>
+	 * 
+	 * @param file
+	 */
 	public TXTFileReaderThread(File file) {
 		this.file = file;
 	}
-	
+
+	/**
+	 * 
+	 * This method is for running.</br>
+	 * 
+	 */
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		getMessagesFromTXTFiles(file);
 		message = parsingTXTFile(message);
 	}
-	
+
+	/**
+	 * 
+	 * This method is for getting string message from txt files.</br>
+	 * 
+	 * @param file
+	 * @return
+	 */
 	private ArrayList<String> getMessagesFromTXTFiles(File file) {
 		try {
 			FileReader fileReader = new FileReader(file);
@@ -38,10 +68,17 @@ public class TXTFileReaderThread implements Runnable{
 		}catch (IOException e) {
 			System.out.println(e);
 		}
-		
+
 		return message;
 	}
-	
+
+	/**
+	 * 
+	 * This method is for parsing txt file(making same shape).</br>
+	 * 
+	 * @param txt
+	 * @return
+	 */
 	private ArrayList<String> parsingTXTFile(ArrayList<String> txt) {
 		ArrayList<String> parsingTXT = new ArrayList<String>();
 		int year, month, day, hour, minute;
@@ -80,9 +117,15 @@ public class TXTFileReaderThread implements Runnable{
 
 		return parsingTXT;
 	}
-	
+
+	/**
+	 * 
+	 * This method is for getting message variable.</br>
+	 * 
+	 * @return
+	 */
 	public ArrayList<String> getMessage() {
 		return message;
 	}
-	
+
 }

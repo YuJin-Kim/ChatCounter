@@ -11,21 +11,49 @@ import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class defines CSVFileReaderThread object.<br>
+ * The CSVFileReaderThread has file and message members.</br>
+ * The CSVFileReaderThread has its constructor, run(), getMessageFromCSVFiles, pasringCSVFile() and getMessage(
+ * ) methods.</br>
+ * This CSVFileReaderThread has interface class Runnable.</br>
+ * 
+ * @author YuJin
+ *
+ */
+
 public class CSVFileReaderThread implements Runnable {
 	File file;
 	ArrayList<String> message = new ArrayList<String>();
-	
+
+	/**
+	 * 
+	 * It is constructor.</br>
+	 * 
+	 * @param file
+	 */
 	public CSVFileReaderThread(File file) {
 		this.file = file;
 	}
-	
+
+	/**
+	 * 
+	 * This method is for running.<br>
+	 * 
+	 */
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		getMessagesFromCSVFiles(file);
 		message = parsingCSVFile(message);
 	}
-	
+
+	/**
+	 * 
+	 * This method is for getting string message from csv files.</br>
+	 * 
+	 * @param file
+	 */
 	private void getMessagesFromCSVFiles(File file) {
 		try {
 			FileReader fileReader = new FileReader(file);
@@ -41,7 +69,14 @@ public class CSVFileReaderThread implements Runnable {
 			System.out.println(e);
 		}
 	}
-	
+
+	/**
+	 * 
+	 * This method is for parsing csv file(making same shape).</br>
+	 * 
+	 * @param cvs
+	 * @return
+	 */
 	private ArrayList<String> parsingCSVFile(ArrayList<String> cvs) {
 		ArrayList<String> parsingCVS = new ArrayList<String>();
 		int year, month, day, hour, minute, second;
@@ -71,7 +106,13 @@ public class CSVFileReaderThread implements Runnable {
 
 		return parsingCVS;
 	}
-	
+
+	/**
+	 * 
+	 * This method is for getting message variable.</br>
+	 * 
+	 * @return
+	 */
 	public ArrayList<String> getMessage() {
 		return message;
 	}

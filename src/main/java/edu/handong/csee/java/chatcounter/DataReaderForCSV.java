@@ -3,6 +3,11 @@ package edu.handong.csee.java.chatcounter;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * 
@@ -25,29 +30,41 @@ public class DataReaderForCSV extends DataReader {
 	 * @return
 	 */
 
-	public ArrayList<String> run(ArrayList<String> message) {
-		message = filterCSVFile(message);
+	public ArrayList<String> run(File file) {
+		ArrayList<String> message = new ArrayList<String>();
+
+		message = getMessage(file);
 		message = parsingCSVFile(message);
 
 		return message;
 	}
-
+	
 	/**
 	 * 
-	 * This method is for filtering csv file.</br>
+	 * This method is for getting message from csv file.</br>
 	 * 
-	 * @param message
+	 * @param csv
 	 * @return
 	 */
 
-	private ArrayList<String> filterCSVFile(ArrayList<String> message) {
-		ArrayList<String> csvMessage = new ArrayList<String>();
+	private ArrayList<String> getMessage(File csv) {
+		ArrayList<String> message = new ArrayList<String>();
 
-		for (String str : message)
-			if (str.startsWith("2018"))
-				csvMessage.add(str);
+		try {
+			FileReader fileReader = new FileReader(csv);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String line = "";
+			while((line = bufferedReader.readLine()) != null)
+				message.add(line);
 
-		return csvMessage;
+			bufferedReader.close();
+
+		}catch (FileNotFoundException e) {
+		}catch (IOException e) {
+			System.out.println(e);
+		}
+
+		return message;
 	}
 
 	/**

@@ -5,6 +5,9 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * 
@@ -60,13 +63,13 @@ public class DataReader {
 	 */
 
 	public File[] getlistOfFilesFromDirectory(File dataDir) {
-		
+
 		return dataDir.listFiles();
 	}
 
 	/**
 	 * 
-	 * This method is for reading files.</br>
+	 * This method is for reading files(csv and txt).</br>
 	 * 
 	 * @param files
 	 * @return
@@ -78,51 +81,36 @@ public class DataReader {
 		ArrayList<String> txt = new ArrayList<String>();
 		ArrayList<CSVFileReaderThread> CSVworkers = new ArrayList<CSVFileReaderThread>();
 		ArrayList<TXTFileReaderThread> TXTworkers = new ArrayList<TXTFileReaderThread>();
-		ArrayList<Thread> csvThreads = new ArrayList<Thread>();
-		ArrayList<Thread> txtThreads = new ArrayList<Thread>();
-		
+		//		ArrayList<Thread> csvThreads = new ArrayList<Thread>();
+		//		ArrayList<Thread> txtThreads = new ArrayList<Thread>();
+
+		ExecutorService executor = Executors.newFixedThreadPool(Cli.thread);
+		ArrayList<Callable<Object>> calls = new ArrayList<Callable<Object>>();
+
 		for (File f : files) {
 			if(f.getName().endsWith(".csv")) {
-				CSVFileReaderThread csvFileReader = new CSVFileReaderThread(f);
-				CSVworkers.add(csvFileReader);
-				Thread CSVworker = new Thread(csvFileReader);
-				csvThreads.add(CSVworker);
-				
-				CSVworker.start();
-				//csv.addAll(csvFileReader.getMessage());
+				Runnable csvWorker = new CSVFileReaderThread(f);
+				CSVworkers.add((CSVFileReaderThread)csvWorker);
+				calls.add(Executors.callable(csvWorker));
 			}
 			else {
-				TXTFileReaderThread txtFileReader = new TXTFileReaderThread(f);
-				TXTworkers.add(txtFileReader);
-				Thread TXTworker = new Thread(txtFileReader);
-				txtThreads.add(TXTworker);
-				
-				TXTworker.start();
-				//txt.addAll(txtFileReader.getMessage());
+				Runnable txtWorker = new TXTFileReaderThread(f);
+				TXTworkers.add((TXTFileReaderThread)txtWorker);
+				calls.add(Executors.callable(txtWorker));
 			}
 		}
-		
-		for(Thread thread : csvThreads) {
-			try {
-				thread.join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+		try {
+			executor.invokeAll(calls); // This line will be terminated after all threads are terminated.
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-		
-		for(Thread thread : txtThreads) {
-			try {
-				thread.join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
+
+		executor.shutdown();
+
 		for (CSVFileReaderThread workers : CSVworkers)
 			csv.addAll(workers.getMessage());
-		
+
 		for (TXTFileReaderThread workers : TXTworkers)
 			txt.addAll(workers.getMessage());
 
